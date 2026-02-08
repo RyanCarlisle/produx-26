@@ -1,0 +1,103 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Anta&family=Kode+Mono:wght@400..700&family=Pixelify+Sans:wght@400..700&family=Unica+One&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-heading: 'Anta', sans-serif;
+  --font-subheading: 'Unica One', sans-serif;
+  --font-body: 'Kode Mono', monospace;
+  --font-pixel: 'Pixelify Sans', cursive;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: #0a0a0a;
+  color: #ffffff;
+  overflow-x: hidden;
+  /* cursor: none; Removed to restore default cursor */
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.font-grotesk {
+  font-family: var(--font-subheading);
+}
+
+.font-tech {
+  font-family: var(--font-heading);
+}
+
+.font-pixel {
+  font-family: var(--font-pixel);
+}
+
+.mix-font-loader text {
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glow {
+  box-shadow: 0 0 40px rgba(99, 32, 238, 0.3);
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.link-underline {
+  position: relative;
+}
+
+.link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: #6320ee;
+  transition: width 0.3s ease;
+}
+
+.link-underline:hover::after {
+  width: 100%;
+}
+
+@media (hover: none) {
+  body {
+    cursor: auto;
+  }
+}
+
+/* Ensure Google reCAPTCHA Badge is visible */
+.grecaptcha-badge { 
+    visibility: visible !important;
+    z-index: 99999 !important;
+}
+
+@keyframes fadeInZoom {
+  0% { opacity: 0; transform: scale(0.8) translate(var(--tw-translate-x), var(--tw-translate-y)); }
+  100% { opacity: 1; transform: scale(1) translate(var(--tw-translate-x), var(--tw-translate-y)); }
+}
+
+.animate-fadeInZoom {
+  animation: fadeInZoom 0.8s ease-out forwards;
+}

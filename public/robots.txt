@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://produx.bitesys.org/sitemap.xml

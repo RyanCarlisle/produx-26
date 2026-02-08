@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pixel Bot Greeting</title>
+    <style>
+        body {
+            background-color: #121212;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .bot-card {
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px solid #ffcc00;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        /* Container for the robot video */
+        .robot-display {
+            width: 250px;
+            height: 250px;
+            overflow: hidden;
+            border-radius: 10px;
+            background: #000;
+            position: relative;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            /* Keeps the pixel art sharp */
+            image-rendering: pixelated; 
+        }
+
+        .status-light {
+            width: 10px;
+            height: 10px;
+            background: #00ff00;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+            box-shadow: 0 0 10px #00ff00;
+        }
+
+        h2 {
+            color: #ffcc00;
+            font-size: 1.2rem;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bot-card">
+        <div class="robot-display">
+            <video autoplay loop muted playsinline>
+                <source src="robot_wave_gesture.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <h2><span class="status-light"></span>Assistant Online</h2>
+    </div>
+
+</body>
+</html>
