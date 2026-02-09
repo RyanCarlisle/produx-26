@@ -63,26 +63,26 @@ export default function Navbar() {
       <nav className="fixed top-0 left-0 w-full z-50 px-6 md:px-12 transition-all duration-300" style={{ paddingTop: isScrolled ? '0.75rem' : '1rem', paddingBottom: isScrolled ? '0.75rem' : '1rem' }}>
         <div className="flex items-center justify-between border border-white/10 rounded-full backdrop-blur-sm bg-black/20 transition-all duration-300" style={{ paddingLeft: isScrolled ? '1.2rem' : '1.5rem', paddingRight: isScrolled ? '1.2rem' : '1.5rem', paddingTop: isScrolled ? '0.6rem' : '0.75rem', paddingBottom: isScrolled ? '0.6rem' : '0.75rem' }}>
           {/* Logo */}
-          <Link
-            to="/"
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
             className="flex items-center gap-4 z-50 text-white"
           >
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="flex items-center gap-4"
+            <a 
+              href="https://www.iimshillong.ac.in" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className={`rounded-full flex items-center justify-center p-1 overflow-hidden transition-all duration-300 hover:opacity-80 ${isScrolled ? 'w-12 h-12 md:w-16 md:h-16' : 'w-16 h-16 md:w-20 md:h-20'}`}
             >
-               <div className={`rounded-full flex items-center justify-center p-1 overflow-hidden transition-all duration-300 ${isScrolled ? 'w-12 h-12 md:w-16 md:h-16' : 'w-16 h-16 md:w-20 md:h-20'}`}>
-                  <img src="/logo/IIMS_Logo.png" alt="IIM Shillong" className="h-full w-full object-contain" />
-               </div>
-               <div className="w-[1px] h-6 bg-white/30"></div>
-               <div className="flex items-center gap-2">
-                  <img src="/logo/produx_logo.svg" alt="ProdUX" className={`w-auto object-contain transition-all duration-300 ${isScrolled ? 'h-8 md:h-10' : 'h-10 md:h-12'}`} />
-                  <span className={`font-bold tracking-wide transition-all duration-300 ${isScrolled ? 'text-base md:text-lg' : 'text-xl md:text-2xl'}`}>ProdUX'26</span>
-               </div>
-            </motion.div>
-          </Link>
+              <img src="/logo/IIMS_Logo.png" alt="IIM Shillong" className="h-full w-full object-contain" />
+            </a>
+            <div className="w-[1px] h-6 bg-white/30"></div>
+            <Link to="/" className="flex items-center gap-2">
+              <img src="/logo/produx_logo.svg" alt="ProdUX" className={`w-auto object-contain transition-all duration-300 ${isScrolled ? 'h-8 md:h-10' : 'h-10 md:h-12'}`} />
+              <span className={`font-bold tracking-wide transition-all duration-300 ${isScrolled ? 'text-base md:text-lg' : 'text-xl md:text-2xl'}`}>ProdUX'26</span>
+            </Link>
+          </motion.div>
 
           {/* Desktop Nav */}
           <motion.div
@@ -91,15 +91,22 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            {menuItems.slice(1).map((item) => (
-              <Link
-                key={item.label}
-                to={item.href}
-                className={`font-medium text-white/70 hover:text-black transition-all rounded-full hover:bg-white ${isScrolled ? 'text-base px-3 py-1.5' : 'text-lg px-4 py-2'}`}
-              >
-                {item.label}
-              </Link>
-            ))}
+            {menuItems.map((item) => {
+              const isActive = location.pathname === item.href;
+              return (
+                <Link
+                  key={item.label}
+                  to={item.href}
+                  className={`font-medium transition-all rounded-full ${isScrolled ? 'text-base px-3 py-1.5' : 'text-lg px-4 py-2'} ${
+                    isActive 
+                      ? 'bg-white text-black' 
+                      : 'text-white/70 hover:text-black hover:bg-white'
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
           </motion.div>
 
           {/* CTA Button */}
@@ -154,24 +161,29 @@ export default function Navbar() {
             exit="closed"
           >
             <div className="flex flex-col items-center gap-8">
-              {menuItems.map((item, i) => (
-                <motion.div
-                  key={item.label}
-                  variants={linkVariants}
-                  custom={i}
-                  initial="closed"
-                  animate="open"
-                  exit="closed"
-                >
-                   <Link
-                    to={item.href}
-                    onClick={() => setIsMenuOpen(false)}
-                    className="text-4xl md:text-5xl font-bold hover:text-brand-orange transition-colors cursor-pointer text-white tracking-tight"
+              {menuItems.map((item, i) => {
+                const isActive = location.pathname === item.href;
+                return (
+                  <motion.div
+                    key={item.label}
+                    variants={linkVariants}
+                    custom={i}
+                    initial="closed"
+                    animate="open"
+                    exit="closed"
                   >
-                    {item.label}
-                  </Link>
-                </motion.div>
-              ))}
+                     <Link
+                      to={item.href}
+                      onClick={() => setIsMenuOpen(false)}
+                      className={`text-4xl md:text-5xl font-bold transition-colors cursor-pointer tracking-tight ${
+                        isActive ? 'text-brand-orange' : 'text-white hover:text-brand-orange'
+                      }`}
+                    >
+                      {item.label}
+                    </Link>
+                  </motion.div>
+                );
+              })}
               <motion.button
                 onClick={() => {
                   setIsRegisterOpen(true);
