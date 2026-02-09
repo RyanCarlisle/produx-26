@@ -248,7 +248,7 @@ export default function Events() {
                     EVENT TIMELINE
                 </h1>
                 <p className="text-white/50 font-mono tracking-widest text-sm md:text-base max-w-xl mx-auto">
-                    // Cool Line about events..(TBD)
+                    The path to the next era of growth...
                 </p>
             </motion.div>
         </div>
