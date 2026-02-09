@@ -12,10 +12,9 @@ export default function Navbar() {
 
   const menuItems = [
     { label: 'HOME', href: '/' },
-    { label: 'ABOUT US', href: '/about' },
+    { label: 'ABOUT', href: '/about' },
     { label: 'EVENTS', href: '/events' },
     { label: 'TEAM', href: '/team' },
-    { label: 'SPONSORS', href: '/sponsors' },
     { label: 'CONTACT', href: '/contact' },
   ];
 
@@ -51,7 +50,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 w-full z-[1000] px-6 md:px-12 py-4">
+      <nav className="fixed top-0 left-0 w-full z-50 px-6 md:px-12 py-4">
         <div className="flex items-center justify-between border border-white/10 rounded-full px-6 py-3 backdrop-blur-sm bg-black/20">
           {/* Logo */}
           <Link

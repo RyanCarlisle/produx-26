@@ -10,7 +10,6 @@ import Loader from './components/Loader';
 import Events from './components/Events';
 import AboutPage from './components/AboutPage';
 import ContactPage from './components/ContactPage';
-import SponsorsPage from './components/SponsorsPage';
 import TeamPage from './components/TeamPage';
 
 // Scroll to top on route change
@@ -57,7 +56,6 @@ function AppContent() {
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/events" element={<Events />} />
-            <Route path="/sponsors" element={<SponsorsPage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/team" element={<TeamPage />} />
           </Routes>

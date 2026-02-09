@@ -3,14 +3,14 @@ import { getDatabase } from "firebase/database";
 import { initializeAppCheck, ReCaptchaV3Provider } from "firebase/app-check";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyA8seIxw0IQAjBsIEqYK_9sMwBiNa_-IGw",
-  authDomain: "produx-26.firebaseapp.com",
-  databaseURL: "https://produx-26-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "produx-26",
-  storageBucket: "produx-26.firebasestorage.app",
-  messagingSenderId: "213335095862",
-  appId: "1:213335095862:web:ad026852d73dfbbe1bb697",
-  measurementId: "G-FSMXZMW2KN"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  databaseURL: import.meta.env.VITE_FIREBASE_DATABASE_URL,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 };
 
 // Singleton pattern to prevent crashes on hot-reload
@@ -30,7 +30,7 @@ if (typeof window !== "undefined") {
 
   try {
     const appCheck = initializeAppCheck(app, {
-      provider: new ReCaptchaV3Provider('6LcGnWQsAAAAAJZ5UVLnQGUfBsGjT8_5lJAV8PrS'),
+      provider: new ReCaptchaV3Provider(import.meta.env.VITE_RECAPTCHA_SITE_KEY),
       isTokenAutoRefreshEnabled: true
     });
     console.log("App Check initialized");

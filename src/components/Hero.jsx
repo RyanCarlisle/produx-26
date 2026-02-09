@@ -175,7 +175,7 @@ export default function Hero() {
                 Designing the Next Era of Growth
             </p>
             <p className="text-lg md:text-xl text-white/60 font-mono tracking-widest uppercase mt-4">
-                16th to 25th February, 2026
+                16th to 22nd February, 2026
             </p>
         </motion.div>
         

@@ -41,3 +41,11 @@ coverage
 
 # Vite
 .vite/
+
+# Firebase
+.firebase
+.firebaserc
+firebase-debug.log
+publish-debug.log
+firestore-debug.log
+ui-debug.log

@@ -13,7 +13,7 @@ export default function AboutPage() {
           animate={{ opacity: 1, y: 0 }}
           className="text-5xl md:text-7xl font-bold mb-6 font-tech tracking-widest"
         >
-          ABOUT <span className="text-transparent bg-clip-text bg-[linear-gradient(to_right,#c20023,#ff6600,#fffb00)] drop-shadow-lg pb-2">US</span>
+          ABOUT <span className="text-transparent bg-clip-text bg-[linear-gradient(to_right,#c20023,#ff6600,#fffb00)] drop-shadow-lg pb-2">THE EVENT</span>
         </motion.h1>
 
         <div className="grid md:grid-cols-2 gap-12">
@@ -28,16 +28,16 @@ export default function AboutPage() {
                 {/* Section 1: About ProdUX */}
                 <div>
                   <h3 className="text-2xl font-bold text-white mb-2">About ProdUX</h3>
-                  <p className="text-lg font-light leading-relaxed text-white">
-                    ProdUX, the flagship Business and Technology Fest by bITeSys, IIM Shillong, started as a platform to explore the intersection of technology, strategy, and innovation. Over the years, it has evolved into a premier event, bringing together students, industry experts, and entrepreneurs to discuss emerging trends, tackle real-world challenges, and shape the future of business and technology.
+                  <p className="text-lg font-light leading-relaxed text-white text-justify">
+                    <span className="text-brand-orange font-medium">ProdUX</span>, the flagship Business and Technology Fest by <span className="text-white font-medium">bITeSys, IIM Shillong</span>, started as a platform to explore the intersection of technology, strategy, and innovation. Over the years, it has evolved into a <span className="text-brand-orange">premier event</span>, bringing together students, industry experts, and entrepreneurs to discuss emerging trends, tackle real-world challenges, and shape the future of business and technology.
                   </p>
                 </div>
 
                 {/* Section 2: Revisiting ProdUX'25 */}
                 <div>
                    <h3 className="text-2xl font-bold text-white mb-2">Revisiting ProdUX'25</h3>
-                   <p className="text-lg font-light leading-relaxed text-white">
-                     ProdUX 2025 featured challenging quizzes, expert talks, case competitions and workshops. Industry leaders like Pamit D Anand (Magicbricks) and Ashish Gambhir (BharatPe) shared insights on product management and Generative AI. Munwar Khan (UX Design Leader) and Soni Shaw (PhonePe) explored UX design and product discovery, fostering strategic thinking and innovation.
+                   <p className="text-lg font-light leading-relaxed text-white text-justify">
+                     <span className="text-brand-orange font-medium">ProdUX 2025</span>, themed “Business Beyond Boundaries,” explored how emerging technologies such as <span className="text-white font-normal">AI, IoT, and blockchain</span> were reshaping industries through panel discussions, business simulations, workshops, and venture clashes, equipping participants with practical insights to drive innovation in the digital age. The event also featured the <span className="text-brand-orange">bITeCast session</span> with <span className="text-white font-medium">Arun Sreelalan Iyer</span>, Head of Product Management at Quantrium, who discussed the intersection of technology, strategy, and product innovation, along with <span className="text-brand-orange">Product Pioneers</span>, where <span className="text-white font-medium">Vinod Kumar Subramaniam</span>, Senior Product Manager at Google, shared insights on entering product management, career growth, and industry best practices.
                    </p>
                 </div>
             </motion.div>
@@ -52,8 +52,8 @@ export default function AboutPage() {
                <div className="border border-brand-red/20 rounded-2xl p-8 bg-brand-red/5 backdrop-blur-sm">
                    <h3 className="text-2xl font-bold text-white mb-4">Next Up: ProdUX'26</h3>
                    <p className="text-xl italic text-brand-orange mb-4">"Designing the Next Era of Growth"</p>
-                   <p className="text-base text-white mb-6 leading-relaxed">
-                     ProdUX'26 will explore how modern organizations design sustainable growth through data-led decision-making, customer-centric product thinking, and agile execution. It equips participants with industry-relevant frameworks, practical exposure, and cross-functional skills.
+                   <p className="text-base text-white mb-6 leading-relaxed text-justify">
+                     <span className="text-brand-orange font-medium">ProdUX'26</span> will explore how modern organizations design sustainable growth through <span className="text-white font-normal">data-led decision-making</span>, customer-centric product thinking, and agile execution. It equips participants with industry-relevant frameworks, practical exposure, and <span className="text-white font-normal">cross-functional skills</span>.
                    </p>
                    
                    <h4 className="font-bold text-white mb-3">What to Expect</h4>
@@ -92,6 +92,36 @@ export default function AboutPage() {
                </div>
             </motion.div>
         </div>
+
+        {/* --- SPONSORS SECTION MERGED --- */}
+        <div className="mt-40 border-t border-white/10 pt-20">
+             <motion.h2 
+                 initial={{ opacity: 0, y: 20 }}
+                 whileInView={{ opacity: 1, y: 0 }}
+                 viewport={{ once: true }}
+                 className="text-4xl md:text-5xl font-bold mb-12 font-tech tracking-widest text-center"
+             >
+                 OUR <span className="text-transparent bg-clip-text bg-[linear-gradient(to_right,#c20023,#ff6600,#fffb00)]">PARTNERS</span>
+             </motion.h2>
+
+             <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="flex flex-col items-center"
+             >
+                <h3 className="text-xl md:text-2xl font-mono text-brand-orange mb-8 tracking-widest uppercase">Business Partner</h3>
+                <a 
+                    href="https://www.cesim.com/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="bg-white rounded-2xl p-8 max-w-sm w-full hover:scale-105 transition-transform duration-300 shadow-[0_0_30px_rgba(255,255,255,0.1)] block z-50 relative cursor-pointer"
+                >
+                    <img src="/images/sponsors/cesim.png" alt="Cesim" className="w-full h-auto object-contain" />
+                </a>
+             </motion.div>
+        </div>
+
       </div>
     </div>
   );

@@ -188,13 +188,13 @@ export default function RegisterModal({ isOpen, onClose }) {
                                 className="space-y-5 overflow-hidden"
                             >
                                 <div className="p-5 border border-brand-red border-opacity-30 bg-brand-red bg-opacity-5 rounded-xl space-y-4">
-                                    <div className="flex items-center gap-2 text-brand-red mb-2">
+                                    <div className="flex items-center gap-2 text-[#ffd700] mb-2">
                                         <Users size={16} />
                                         <span className="text-xs font-bold uppercase tracking-widest">Squad Details</span>
                                     </div>
                                     
                                     <div className="space-y-1">
-                                        <label className="text-xs font-mono text-brand-red uppercase tracking-widest pl-1">Team Name <span className="text-red-500">*</span></label>
+                                        <label className="text-xs font-mono text-[#ffd700] uppercase tracking-widest pl-1">Team Name <span className="text-red-500">*</span></label>
                                         <input 
                                             required 
                                             type="text" 
@@ -209,7 +209,7 @@ export default function RegisterModal({ isOpen, onClose }) {
                                     {/* Member 2 */}
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div className="space-y-1">
-                                            <label className="text-xs font-mono text-gray-500 uppercase pl-1">Member 2 Name (Optional)</label>
+                                            <label className="text-xs font-mono text-[#ffd700] uppercase pl-1">Member 2 Name (Optional)</label>
                                             <input 
                                                 type="text" 
                                                 name="member2Name"
@@ -219,7 +219,7 @@ export default function RegisterModal({ isOpen, onClose }) {
                                             />
                                         </div>
                                          <div className="space-y-1">
-                                            <label className="text-xs font-mono text-gray-500 uppercase pl-1">Member 2 Email</label>
+                                            <label className="text-xs font-mono text-[#ffd700] uppercase pl-1">Member 2 Email</label>
                                             <input 
                                                 type="email" 
                                                 name="member2Email"
@@ -233,7 +233,7 @@ export default function RegisterModal({ isOpen, onClose }) {
                                     {/* Member 3 */}
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div className="space-y-1">
-                                            <label className="text-xs font-mono text-gray-500 uppercase pl-1">Member 3 Name (Optional)</label>
+                                            <label className="text-xs font-mono text-[#ffd700] uppercase pl-1">Member 3 Name (Optional)</label>
                                             <input 
                                                 type="text" 
                                                 name="member3Name"
@@ -243,7 +243,7 @@ export default function RegisterModal({ isOpen, onClose }) {
                                             />
                                         </div>
                                          <div className="space-y-1">
-                                            <label className="text-xs font-mono text-gray-500 uppercase pl-1">Member 3 Email</label>
+                                            <label className="text-xs font-mono text-[#ffd700] uppercase pl-1">Member 3 Email</label>
                                             <input 
                                                 type="email" 
                                                 name="member3Email"
