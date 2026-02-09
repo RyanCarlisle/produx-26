@@ -108,7 +108,12 @@ export default function Footer() {
             © 2026 bITeSys IIM Shillong. All rights reserved.
           </p>
           <p className="text-white/40 text-sm">
+                       <a 
+                 href="https://www.iimshillong.ac.in/club-news-events/bitesys/" 
+                 className="flex items-center gap-3 text-white/40 text-sm hover:text-white transition-colors"
+               >
             Powered by bITeSys | The Business and Technology Club
+          </a>
           </p>
         </div>
       </div>
