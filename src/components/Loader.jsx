@@ -75,7 +75,7 @@ export default function Loader({ onComplete }) {
           {/* 2. Liquid Fill Layer (Orange, Masked by Text) */}
           <g mask="url(#textMask)">
             <motion.path
-              fill="#EA912D"
+              fill="#ffffff"
               // Wave path: Standard sine wave using Q and T commands for smoothness
               d="M 0 0 Q 75 25 150 0 T 300 0 T 450 0 T 600 0 T 750 0 T 900 0 T 1050 0 T 1200 0 V 300 H 0 Z"
               initial={{ y: 200, x: 0 }}
