@@ -11,6 +11,7 @@ import Events from './components/Events';
 import AboutPage from './components/AboutPage';
 import ContactPage from './components/ContactPage';
 import TeamPage from './components/TeamPage';
+import ScrollToTopButton from './components/ScrollToTopButton';
 
 // Scroll to top on route change
 function ScrollToTop() {
@@ -61,6 +62,7 @@ function AppContent() {
           </Routes>
           
           {!isEventsPage && <Footer />}
+          <ScrollToTopButton />
         </div>
       )}
     </>
