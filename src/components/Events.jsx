@@ -4,7 +4,7 @@ import { Clock, MapPin, ChevronRight, Terminal, Calendar, Share2 } from "lucide-
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import RegisterModal from "./RegisterModal";
-import StarBackground from "./StarBackground";
+import NetworkBackground from "./NetworkBackground";
 
 // --- DATA ---
 const eventsData = [
@@ -233,7 +233,7 @@ export default function Events() {
         
         {/* Fixed Backgrounds */}
         <div className="fixed inset-0 z-0 pointer-events-none">
-            <StarBackground />
+            <NetworkBackground />
             <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black opacity-80" />
         </div>
 

@@ -1,11 +1,14 @@
 ﻿import { motion } from 'framer-motion';
 import { MapPin, Phone, Mail } from 'lucide-react';
-import StarBackground from './StarBackground';
+import NetworkBackground from './NetworkBackground';
 
 export default function ContactPage() {
   return (
     <div className="min-h-screen pt-20 px-6 md:px-12 bg-[#0a0a0a] text-white relative flex flex-col items-center justify-center">
-        <StarBackground />
+        <div className="fixed inset-0 z-0 pointer-events-none">
+          <NetworkBackground />
+          <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black opacity-80" />
+        </div>
         
         <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
             <div className="absolute -top-1/2 -left-1/2 w-full h-full bg-brand-orange/5 blur-[100px] rounded-full"></div>

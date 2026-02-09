@@ -69,14 +69,14 @@ export default function Navbar() {
                <div className="w-[1px] h-6 bg-white/30"></div>
                <div className="flex items-center gap-2">
                   <img src="/logo/produx_logo.svg" alt="ProdUX" className="h-8 md:h-10 w-auto object-contain" />
-                  <span className="font-bold text-lg md:text-xl tracking-wide hidden md:block">ProdUX</span>
+                  <span className="font-bold text-lg md:text-xl tracking-wide">ProdUX'26</span>
                </div>
             </motion.div>
           </Link>
 
-          {/* Desktop Nav - Only visible on non-home pages */}
+          {/* Desktop Nav */}
           <motion.div
-            className={`hidden ${isHomePage ? '' : 'lg:flex'} items-center gap-4`}
+            className="hidden lg:flex items-center gap-4"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
@@ -92,10 +92,10 @@ export default function Navbar() {
             ))}
           </motion.div>
 
-          {/* CTA Button - Only visible on non-home pages */}
+          {/* CTA Button */}
           <motion.button
             onClick={() => setIsRegisterOpen(true)}
-            className={`hidden ${isHomePage ? '' : 'md:flex'} items-center gap-2 px-6 py-2.5 border border-brand-orange text-white bg-transparent rounded-full font-bold tracking-[0.2em] uppercase hover:bg-brand-orange hover:text-black transition-all transform hover:scale-105 group relative`}
+            className="hidden lg:flex items-center gap-2 px-6 py-2.5 border border-brand-orange text-white bg-transparent rounded-full font-bold tracking-[0.2em] uppercase hover:bg-brand-orange hover:text-black transition-all transform hover:scale-105 group relative"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
@@ -103,10 +103,10 @@ export default function Navbar() {
             REGISTER NOW
           </motion.button>
 
-          {/* Mobile Menu Button - Visible on Mobile AND Desktop if Home Page */}
+          {/* Mobile Menu Button */}
           <motion.button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className={`${isHomePage ? 'flex' : 'md:hidden'} z-50 flex flex-col gap-1.5 p-2 cursor-pointer`}
+            className="lg:hidden z-50 flex flex-col gap-1.5 p-2 cursor-pointer"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6 }}

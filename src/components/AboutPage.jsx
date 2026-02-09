@@ -1,10 +1,13 @@
 import { motion } from 'framer-motion';
-import StarBackground from './StarBackground';
+import NetworkBackground from './NetworkBackground';
 
 export default function AboutPage() {
   return (
     <div className="min-h-screen pt-20 px-6 md:px-12 bg-[#0a0a0a] text-white overflow-hidden relative">
-      <StarBackground />
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        <NetworkBackground />
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black opacity-80" />
+      </div>
       
       <div className="max-w-7xl mx-auto py-20">
         <motion.h1 

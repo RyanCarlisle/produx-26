@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Linkedin } from 'lucide-react';
-import StarBackground from './StarBackground';
+import NetworkBackground from './NetworkBackground';
 
 const TeamSection = ({ title, members, delayBase = 0 }) => {
     return (
@@ -84,7 +84,10 @@ export default function TeamPage() {
 
   return (
     <div className="min-h-screen pt-24 px-6 md:px-12 bg-[#050505] text-white relative">
-        <StarBackground />
+        <div className="fixed inset-0 z-0 pointer-events-none">
+          <NetworkBackground />
+          <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black opacity-80" />
+        </div>
         
         <div className="max-w-7xl mx-auto relative z-10">
             <motion.div 
