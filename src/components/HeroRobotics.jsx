@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Rocket } from 'lucide-react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
+import RegisterModal from './RegisterModal';
 
 // 3D Robotic Arm
 function RoboticArm() {
@@ -376,6 +377,7 @@ function HolographicDisplay({ children, delay = 0 }) {
 }
 
 export default function HeroRobotics() {
+  const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -489,6 +491,7 @@ export default function HeroRobotics() {
 
           {/* Register Now Button */}
           <motion.button
+            onClick={() => setIsRegisterOpen(true)}
             className="group relative overflow-hidden px-4 py-2 sm:px-8 sm:py-3 md:px-10 md:py-4 rounded-full bg-gradient-to-r from-orange-500 to-red-600 text-white font-bold text-xs sm:text-sm md:text-base tracking-wider uppercase shadow-[0_0_20px_rgba(234,145,45,0.4)] transition-all duration-300"
             whileHover={{ 
               scale: 1.05,
@@ -527,6 +530,9 @@ export default function HeroRobotics() {
           style={{ transformOrigin: 'left' }}
         />
       </div>
+
+      {/* Register Modal */}
+      <RegisterModal isOpen={isRegisterOpen} onClose={() => setIsRegisterOpen(false)} />
     </section>
   );
 }
