@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
+import NetworkBackground from './NetworkBackground';
 
 export default function Showcase() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -63,17 +64,23 @@ export default function Showcase() {
 
   return (
     <div 
-      className="min-h-screen py-24 md:py-32 px-4 md:px-8 lg:px-16"
+      className="min-h-screen py-24 md:py-32 px-4 md:px-8 lg:px-16 relative"
       onKeyDown={handleKeyPress}
       tabIndex={0}
     >
-      {/* Header */}
-      <motion.div
-        className="text-center mb-12 md:mb-16"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
+      <div className="fixed inset-0 z-0">
+        <NetworkBackground />
+      </div>
+      
+      {/* Content wrapper with higher z-index */}
+      <div className="relative z-10">
+        {/* Header */}
+        <motion.div
+          className="text-center mb-12 md:mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
         <h1 className="text-5xl md:text-7xl font-bold font-tech mb-4">
           <span
             style={{
@@ -193,6 +200,7 @@ export default function Showcase() {
           </motion.div>
         )}
       </AnimatePresence>
+      </div>
     </div>
   );
 }
