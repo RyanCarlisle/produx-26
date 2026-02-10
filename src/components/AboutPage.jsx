@@ -70,7 +70,7 @@ export default function AboutPage() {
             {stats.map((stat, i) => (
               <motion.div
                 key={stat.label}
-                className="border border-white/10 rounded-xl p-6 md:p-8 backdrop-blur-sm bg-black/20 hover:border-orange-500/30 transition-all duration-300"
+                className="border border-white/10 rounded-xl p-6 md:p-8 bg-white/[0.02] hover:border-orange-500/30 transition-all duration-300"
                 initial={{ opacity: 0, x: 30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}

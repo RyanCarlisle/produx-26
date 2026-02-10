@@ -19,8 +19,8 @@ export default function Showcase() {
 
   // Import all images from past_event folder and shuffle them
   const images = useMemo(() => shuffleArray([
-    { src: '/images/past_event/img1.jpg', alt: 'Event Photo' },
-    { src: '/images/past_event/img2.jpg', alt: 'Event Photo' },
+    { src: '/images/past_event/img1.jpeg', alt: 'Event Photo' },
+    { src: '/images/past_event/img2.jpeg', alt: 'Event Photo' },
     { src: '/images/past_event/img3.jpeg', alt: 'Event Photo' },
     { src: '/images/past_event/img4.jpeg', alt: 'Event Photo' },
     { src: '/images/past_event/img5.jpeg', alt: 'Event Photo' },
@@ -31,6 +31,8 @@ export default function Showcase() {
     { src: '/images/past_event/img10.jpeg', alt: 'Event Photo' },
     { src: '/images/past_event/img11.jpeg', alt: 'Event Photo' },
     { src: '/images/past_event/img12.jpeg', alt: 'Event Photo' },
+    { src: '/images/past_event/img13.jpeg', alt: 'Event Photo' },
+    { src: '/images/past_event/img14.jpeg', alt: 'Event Photo' }
   ]), []);
 
   const openLightbox = (index) => {
