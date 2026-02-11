@@ -469,7 +469,7 @@ export default function HeroRobotics() {
 
         {/* Action Buttons - Moved closer */}
         <motion.div
-          className="flex flex-row items-center gap-3 md:gap-6 mt-4 md:mt-10 mb-4 md:mb-2"
+          className="flex flex-row items-center gap-3 md:gap-6 mt-4 md:mt-6 mb-2"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.3 }}
@@ -511,7 +511,7 @@ export default function HeroRobotics() {
 
         {/* Tech specs bar */}
         <motion.div
-          className="mt-2 md:mt-6 flex flex-wrap justify-center gap-3 md:gap-6 text-[8px] md:text-xs font-mono text-white/40 mb-2 md:mb-0"
+          className="mt-2 md:mt-4 flex flex-wrap justify-center gap-3 md:gap-6 text-[8px] md:text-xs font-mono text-white/40 mb-1"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5 }}

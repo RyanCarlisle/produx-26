@@ -96,7 +96,6 @@ export default function ContactPage() {
                         height="100%" 
                         style={{ border: 0 }} 
                         allowFullScreen="" 
-                        loading="lazy" 
                         referrerPolicy="no-referrer-when-downgrade"
                         title="IIM Shillong Map"
                     ></iframe>

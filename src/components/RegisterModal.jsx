@@ -215,15 +215,16 @@ export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.95, opacity: 0, filter: "blur(10px)" }}
             transition={{ type: "spring", duration: 0.6, bounce: 0.3 }}
-            className={`relative bg-[#050505] border-2 border-brand-red/50 w-full max-w-2xl rounded-3xl shadow-[0_0_50px_rgba(194,0,35,0.3)] max-h-[90vh] transition-all duration-300 ${isSuccess ? 'overflow-visible flex items-center justify-center p-6 md:p-10' : 'p-5 md:p-10 overflow-y-auto custom-scrollbar'}`}
+            className="relative bg-[#050505] border-2 border-brand-red/50 w-full max-w-2xl rounded-3xl shadow-[0_0_50px_rgba(194,0,35,0.3)] max-h-[90vh] flex flex-col overflow-hidden transition-all duration-300"
           >
              <button
               onClick={onClose}
-              className="absolute top-4 right-4 md:top-6 md:right-6 text-white/50 hover:text-brand-orange transition-colors z-20"
+              className="absolute top-4 right-4 md:top-6 md:right-6 text-white/50 hover:text-brand-orange transition-colors z-30"
             >
               <X size={24} />
             </button> 
 
+            <div className={`w-full h-full relative z-10 ${isSuccess ? 'flex items-center justify-center p-6 md:p-10' : 'overflow-y-auto overflow-x-hidden custom-scrollbar p-5 md:p-10'}`}>
             {/* Form Content */}             {isSuccess ? (
                 <motion.div 
                     initial={{ opacity: 0, scale: 0.9 }}
@@ -451,6 +452,7 @@ export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
                 </form>
              </div>
              )}
+             </div>
              
              {/* Decorative Background Elements */}
               <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-red/15 rounded-full blur-[120px] -mr-32 -mt-32 pointer-events-none" />
