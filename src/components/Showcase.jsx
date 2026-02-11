@@ -36,25 +36,33 @@ export default function Showcase() {
     { src: '/images/past_event/img14.jpeg', alt: 'Event Photo' }
   ]), []);
 
+  const [visibleCount, setVisibleCount] = useState(8);
+
+  const visibleImages = useMemo(() => images.slice(0, visibleCount), [images, visibleCount]);
+
+  const loadMore = () => {
+    setVisibleCount(prev => Math.min(prev + 8, images.length));
+  };
+    
   const openLightbox = (index) => {
     setLightboxIndex(index);
-    setSelectedImage(images[index]);
+    setSelectedImage(visibleImages[index]);
   };
 
   const closeLightbox = () => {
     setSelectedImage(null);
   };
-
+    
   const goToPrevious = () => {
-    const newIndex = lightboxIndex === 0 ? images.length - 1 : lightboxIndex - 1;
+    const newIndex = lightboxIndex === 0 ? visibleImages.length - 1 : lightboxIndex - 1;
     setLightboxIndex(newIndex);
-    setSelectedImage(images[newIndex]);
+    setSelectedImage(visibleImages[newIndex]);
   };
-
+    
   const goToNext = () => {
-    const newIndex = lightboxIndex === images.length - 1 ? 0 : lightboxIndex + 1;
+    const newIndex = lightboxIndex === visibleImages.length - 1 ? 0 : lightboxIndex + 1;
     setLightboxIndex(newIndex);
-    setSelectedImage(images[newIndex]);
+    setSelectedImage(visibleImages[newIndex]);
   };
 
   // Handle keyboard navigation
@@ -103,9 +111,9 @@ export default function Showcase() {
       </motion.div>
 
       {/* Gallery Grid */}
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto mb-12">
         <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
-          {images.map((image, index) => (
+          {visibleImages.map((image, index) => (
             <motion.div
               key={index}
               className="group relative aspect-square overflow-hidden rounded-lg cursor-pointer bg-zinc-900"
@@ -130,6 +138,18 @@ export default function Showcase() {
           ))}
         </div>
       </div>
+
+      {/* Load More Button */}
+      {visibleCount < images.length && (
+          <div className="flex justify-center mb-12">
+              <button 
+                  onClick={loadMore}
+                  className="px-8 py-3 bg-brand-orange/10 border border-brand-orange text-brand-orange hover:bg-brand-orange hover:text-black rounded-full font-bold tracking-widest uppercase transition-all"
+              >
+                  Load More
+              </button>
+          </div>
+      )}
 
       {/* Lightbox */}
       {createPortal(

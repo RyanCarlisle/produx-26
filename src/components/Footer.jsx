@@ -33,11 +33,11 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="py-16 px-6 md:px-12 lg:px-24 border-t border-white/10 bg-black/20 backdrop-blur-sm">
+    <footer className="py-16 px-6 md:px-12 lg:px-20 border-t border-white/10 bg-black/20 backdrop-blur-sm">
       <div className="max-w-7xl mx-auto">
-        <div className="grid md:grid-cols-4 gap-12">
+        <div className="flex flex-col md:flex-row flex-wrap justify-between gap-12 lg:gap-8">
           {/* Brand */}
-          <div className="md:col-span-2">
+          <div className="w-full md:w-full lg:w-[45%]">
             <a
               href="#"
               className="inline-flex items-center gap-3"
@@ -52,7 +52,7 @@ export default function Footer() {
           </div>
 
           {/* Quick Links */}
-          <div>
+          <div className="w-full md:w-[45%] lg:w-[20%]">
             <h4 className="text-sm font-semibold uppercase tracking-wider text-white/40 mb-4">
               Quick Links
             </h4>
@@ -71,7 +71,7 @@ export default function Footer() {
           </div>
 
           {/* Social / Contact */}
-          <div>
+          <div className="w-full md:w-[45%] lg:w-[25%]">
             <h4 className="text-sm font-semibold uppercase tracking-wider text-white/40 mb-4">
               Connect
             </h4>

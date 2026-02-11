@@ -379,31 +379,24 @@ function HolographicDisplay({ children, delay = 0 }) {
 export default function HeroRobotics() {
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   const containerRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start start', 'end start'],
-  });
 
-  const y = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-
+  // Parallax removed for better visibility on short screens
   return (
     <section
       ref={containerRef}
-      className="relative h-[100dvh] w-full overflow-hidden flex flex-col"
+      className="relative min-h-[100dvh] w-full overflow-x-hidden flex flex-col items-center justify-center py-20 md:pt-32 md:pb-20"
     >
       {/* Gradient overlays */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/60 via-transparent to-[#0a0a0a] z-10 pointer-events-none" />
       <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a]/40 via-transparent to-[#0a0a0a]/40 z-10 pointer-events-none" />
 
       {/* Content */}
-      <motion.div
-        className="relative z-20 flex-1 flex flex-col items-center justify-center px-4 md:px-6 text-center pt-20 pb-4 md:pb-8"
-        style={{ y, opacity }}
+      <div
+        className="relative z-20 flex-1 flex flex-col items-center justify-center px-4 md:px-6 text-center w-full pt-16 md:pt-0"
       >
         {/* Main Title - Compact on Short Screens */}
         <HolographicDisplay delay={0.3}>
-          <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold font-tech tracking-wider mb-2 md:mb-6">
+          <h1 className="text-[40px] sm:text-[50px] md:text-[60px] lg:text-[80px] font-bold font-tech tracking-wider mb-2 leading-none">
             <motion.span
               className="inline-block text-white/70 mr-3 md:mr-4"
               initial={{ opacity: 0, x: -20 }}
@@ -432,7 +425,7 @@ export default function HeroRobotics() {
 
         {/* Year with robot mascot reference - Reduced margins */}
         <motion.div
-          className="flex items-center gap-3 md:gap-5 mb-4 md:mb-8"
+          className="flex items-center gap-3 md:gap-5 mb-3 md:mb-5 scale-90 md:scale-100"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
@@ -447,13 +440,13 @@ export default function HeroRobotics() {
 
         {/* Subtitle */}
         <motion.div
-          className="max-w-xs md:max-w-3xl px-2 mb-4 md:mb-0"
+          className="max-w-xs md:max-w-3xl px-2 mb-3 md:mb-1"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 1.0 }}
         >
           <div className="inline-block border border-orange-500/30 bg-orange-500/5 backdrop-blur-sm px-3 py-2 md:px-6 md:py-3 rounded-lg">
-            <p className="text-sm md:text-3xl font-tech font-semibold tracking-wide text-orange-400 mb-0 md:mb-2">
+            <p className="text-base md:text-[30px] font-tech font-semibold tracking-wide text-orange-400 mb-0 md:mb-1">
               Designing the Next Era of Growth
             </p>
             <p className="text-[10px] md:text-sm text-white/50 font-mono tracking-wider md:tracking-[0.3em] uppercase hidden md:block">
@@ -463,13 +456,13 @@ export default function HeroRobotics() {
         </motion.div>
 
         {/* Mechanical Countdown - Scaled down for mobile/short screens */}
-        <div className="scale-[0.8] md:scale-100 origin-center -my-4 md:my-0">
+        <div className="scale-[0.7] md:scale-[0.8] origin-center -my-6 md:-my-4">
              <MechanicalCountdown />
         </div>
 
         {/* Action Buttons - Moved closer */}
         <motion.div
-          className="flex flex-row items-center gap-3 md:gap-6 mt-4 md:mt-6 mb-2"
+          className="flex flex-row items-center gap-3 md:gap-6 mt-1 md:mt-2 mb-2 scale-90 md:scale-100"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.3 }}
@@ -511,7 +504,7 @@ export default function HeroRobotics() {
 
         {/* Tech specs bar */}
         <motion.div
-          className="mt-2 md:mt-4 flex flex-wrap justify-center gap-3 md:gap-6 text-[8px] md:text-xs font-mono text-white/40 mb-1"
+          className="mt-1 md:mt-2 flex flex-wrap justify-center gap-3 md:gap-6 text-[8px] md:text-xs font-mono text-white/40 mb-1"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5 }}
@@ -520,7 +513,7 @@ export default function HeroRobotics() {
           <div>VERSION: <span className="text-orange-500">2026.2</span></div>
           <div>MODE: <span className="text-orange-500">INNOVATION</span></div>
         </motion.div>
-      </motion.div>
+      </div>
 
       {/* Bottom UI bar */}
       <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-orange-500 to-transparent z-30">
