@@ -456,13 +456,13 @@ export default function HeroRobotics() {
         </motion.div>
 
         {/* Mechanical Countdown - Scaled down for mobile/short screens */}
-        <div className="scale-[0.7] md:scale-[0.8] origin-center -my-6 md:-my-4">
+        <div className="scale-[0.7] md:scale-[0.8] origin-center -my-3 md:-my-4 mb-6 md:mb-4">
              <MechanicalCountdown />
         </div>
 
         {/* Action Buttons - Moved closer */}
         <motion.div
-          className="flex flex-row items-center gap-3 md:gap-6 mt-1 md:mt-2 mb-2 scale-90 md:scale-100"
+          className="flex flex-row items-center gap-3 md:gap-6 mt-6 md:mt-2 mb-2 scale-90 md:scale-100"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.3 }}

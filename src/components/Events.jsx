@@ -136,11 +136,12 @@ const EventCard = ({ event, index, onRegister }) => {
       whileInView={{ opacity: 1, x: 0, y: 0 }}
       onViewportEnter={() => setIsInView(true)}
       onViewportLeave={() => setIsInView(false)}
-      viewport={{ margin: "-200px" }}
-      transition={{ duration: 0.4, delay: index * 0.1 }}
+      viewport={{ once: false, amount: 0.3 }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
       className={`relative flex flex-col md:flex-row items-center w-full pl-8 md:pl-0 ${
         isEven ? "md:flex-row-reverse" : ""
       }`}
+      style={{ willChange: 'transform, opacity' }}
     >
       {/* Date/Time Node (Mobile Only) */}
       <div className="md:hidden flex items-center gap-2 text-brand-orange font-mono text-sm px-4 py-1 border border-brand-orange/30 rounded bg-brand-orange/5 mb-4">
@@ -173,6 +174,12 @@ const EventCard = ({ event, index, onRegister }) => {
               src={event.image} 
               alt={event.title} 
               className="w-full h-full object-cover"
+              loading="lazy"
+              decoding="async"
+              onError={(e) => {
+                e.target.style.display = 'block';
+                e.target.style.backgroundColor = '#1a1a1a';
+              }}
             />
           </div>
 
