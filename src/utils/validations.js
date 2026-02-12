@@ -21,7 +21,7 @@ export const validatePhone = (phone) => {
 };
 
 // Events that allow external (non-IIM Shillong) registrations
-const OPEN_EVENTS = ["PRODUCT PIONEERS", "BOARDROOM BATTLEGROUND"];
+const OPEN_EVENTS = ["PRODUCT PIONEERS", "Product Pioneers"];
 
 // Domain validation constant
 const ALLOWED_DOMAIN = 'iimshillong.ac.in';

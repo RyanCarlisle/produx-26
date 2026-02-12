@@ -214,13 +214,25 @@ const EventCard = ({ event, index, onRegister }) => {
             </p>
 
             {!noRegisterList.includes(event.title) && (
-              <button 
-                  onClick={() => onRegister(event.title)}
+              event.title === "BOARDROOM BATTLEGROUND" ? (
+                <a 
+                  href="https://unstop.com/quiz/boardroom-battleground-iim-shillong-1640805"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className={`group inline-flex items-center gap-2 px-8 py-3 bg-white/5 border border-white/10 hover:border-brand-orange hover:bg-brand-orange/10 transition-all duration-300 rounded font-mono text-sm tracking-widest uppercase mt-4 ${isEven ? 'ml-auto' : 'mr-auto'}`}
-              >
+                >
                   <span className="font-bold">REGISTER</span>
                   <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform text-brand-orange" />
-              </button>
+                </a>
+              ) : (
+                <button 
+                  onClick={() => onRegister(event.title)}
+                  className={`group inline-flex items-center gap-2 px-8 py-3 bg-white/5 border border-white/10 hover:border-brand-orange hover:bg-brand-orange/10 transition-all duration-300 rounded font-mono text-sm tracking-widest uppercase mt-4 ${isEven ? 'ml-auto' : 'mr-auto'}`}
+                >
+                  <span className="font-bold">REGISTER</span>
+                  <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform text-brand-orange" />
+                </button>
+              )
             )}
         </div>
       </div>

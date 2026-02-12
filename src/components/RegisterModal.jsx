@@ -38,21 +38,22 @@ export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
   }, [formData.eventType]);
 
   const eventOptions = [
-    "TECHVENTURES",
-    "PRECISE PROMPT",
-    "FIGMAFORGE",
-    "BOARDROOM BATTLEGROUND",
-    "bITeWARS",
-    "PRODUCT PIONEERS"
+    "TechVentures",
+    "Precise Prompt",
+    "Figma Forge",
+    "Boardroom Battleground",
+    "bITeWars",
+    "Product Pioneers"
   ];
 
-  const teamEvents = ["BOARDROOM BATTLEGROUND", "bITeWARS"];
+  const teamEvents = ["Boardroom Battleground", "bITeWars"];
   const isTeamEvent = teamEvents.includes(formData.eventType);
+  const isBoardroomBattleground = formData.eventType === "Boardroom Battleground";
   
   // Logic for max team size
-  // BOARDROOM BATTLEGROUND: Mandatorily 3 (User + 2 Members) -> Total 3
-  // bITeWARS: Upto 3 (User + 0-2 Members) -> Total 1-3
-  const isBoardroom = formData.eventType === "BOARDROOM BATTLEGROUND";
+  // Boardroom Battleground: Mandatorily 3 (User + 2 Members) -> Total 3
+  // bITeWars: Upto 3 (User + 0-2 Members) -> Total 1-3
+  const isBoardroom = formData.eventType === "Boardroom Battleground";
   const maxAdditionalMembers = 2; // Total team size 3 means 2 extra members
 
   const handleChange = (e) => {
@@ -257,7 +258,27 @@ export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
                 <p className="text-white mb-6 md:mb-8 text-base md:text-lg">Secure your spot in the next era of growth.</p>
 
                 <form className="space-y-4 md:space-y-5" onSubmit={handleSubmit}>
+                   {/* Event Selection */}
+                   <div className="space-y-1">
+                      <label className="text-sm font-mono text-white uppercase tracking-widest pl-1">Target Mission (Event) <span className="text-brand-red">*</span></label>
+                      <div className="relative">
+                        <select 
+                            required
+                            name="eventType"
+                            value={formData.eventType}
+                            onChange={handleChange}
+                            style={{ colorScheme: 'dark' }}
+                            className="w-full bg-white/5 border border-brand-red/20 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-orange focus:bg-white/10 transition-all appearance-none cursor-pointer validated-input"
+                        >
+                            <option value="" disabled className="bg-[#050505] text-white">Select an Event</option>
+                            {eventOptions.map(evt => <option key={evt} value={evt} className="bg-[#050505] text-white hover:bg-brand-orange hover:text-black">{evt}</option>)}
+                        </select>
+                        <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-white/30 pointer-events-none" size={18} />
+                      </div>
+                   </div>
+
                    {/* Personal Info Grid */}
+                   {!isBoardroomBattleground && (
                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                       <div className="space-y-1">
                         <label className="text-sm font-mono text-white uppercase tracking-widest pl-1">First Name <span className="text-brand-red">*</span></label>
@@ -284,8 +305,10 @@ export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
                         />
                       </div>
                    </div>
+                   )}
 
                    {/* Standard Contact Info */}
+                   {!isBoardroomBattleground && (
                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                        <div className="space-y-1">
                           <label className="text-xs font-mono text-white uppercase tracking-widest pl-1">Email <span className="text-brand-red">*</span></label>
@@ -296,7 +319,7 @@ export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
                               value={formData.email}
                               onChange={handleChange}
                               className="w-full bg-white/5 border border-brand-red/20 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-orange focus:bg-white/10 transition-all placeholder:text-white/30 validated-input" 
-                              placeholder="neo@matrix.com" 
+                              placeholder="neo@iimshillong.ac.in" 
                           />
                        </div>
                        <div className="space-y-1">
@@ -312,29 +335,11 @@ export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
                           />
                        </div>
                    </div>
-                   
-                   {/* Event Selection */}
-                   <div className="space-y-1">
-                      <label className="text-sm font-mono text-white uppercase tracking-widest pl-1">Target Mission (Event) <span className="text-brand-red">*</span></label>
-                      <div className="relative">
-                        <select 
-                            required
-                            name="eventType"
-                            value={formData.eventType}
-                            onChange={handleChange}
-                            style={{ colorScheme: 'dark' }}
-                            className="w-full bg-white/5 border border-brand-red/20 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-orange focus:bg-white/10 transition-all appearance-none cursor-pointer validated-input"
-                        >
-                            <option value="" disabled className="bg-[#050505] text-white">Select an Event</option>
-                            {eventOptions.map(evt => <option key={evt} value={evt} className="bg-[#050505] text-white hover:bg-brand-orange hover:text-black">{evt}</option>)}
-                        </select>
-                        <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-white/30 pointer-events-none" size={18} />
-                      </div>
-                   </div>
+                   )}
 
                    {/* Conditional Team Fields */}
                    <AnimatePresence mode="popLayout">
-                        {isTeamEvent && (
+                        {isTeamEvent && !isBoardroomBattleground && (
                             <motion.div
                                 initial={{ opacity: 0, height: 0 }}
                                 animate={{ opacity: 1, height: 'auto' }}
@@ -430,6 +435,7 @@ export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
                    </AnimatePresence>
                    {/* Standard Contact Info Remove from here */}
                    
+                   {!isBoardroomBattleground && (
                    <div className="pt-2 text-center">
                       <p className="text-[8px] text-white/30 max-w-xs mx-auto leading-relaxed">
                           This site is protected by reCAPTCHA and the Google{' '}
@@ -437,17 +443,32 @@ export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
                           <a href="https://policies.google.com/terms" target="_blank" rel="noreferrer" className="text-brand-orange hover:underline">Terms of Service</a> apply.
                       </p>
                    </div>
+                   )}
 
                    <div className="pt-2">
-                      <button 
-                        type="submit" 
-                        disabled={isSubmitting}
-                        className="w-full flex items-center justify-center gap-2 px-4 md:px-6 py-4 border border-brand-orange text-white bg-transparent rounded-full font-bold tracking-widest md:tracking-[0.2em] uppercase hover:bg-brand-orange hover:text-black transition-all transform hover:scale-105 group relative disabled:opacity-50 disabled:cursor-not-allowed"
-                      >
+                      {isBoardroomBattleground ? (
+                        <a 
+                          href="https://unstop.com/quiz/boardroom-battleground-iim-shillong-1640805"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-full flex items-center justify-center gap-2 px-4 md:px-6 py-4 border border-brand-orange text-white bg-transparent rounded-full font-bold tracking-widest md:tracking-[0.2em] uppercase hover:bg-brand-orange hover:text-black transition-all transform hover:scale-105 group relative"
+                        >
+                          <span className="flex items-center justify-center gap-2 whitespace-nowrap text-xs md:text-base">
+                            REGISTER ON UNSTOP
+                          </span>
+                          <Rocket size={18} className="group-hover:rotate-12 transition-transform" />
+                        </a>
+                      ) : (
+                        <button 
+                          type="submit" 
+                          disabled={isSubmitting}
+                          className="w-full flex items-center justify-center gap-2 px-4 md:px-6 py-4 border border-brand-orange text-white bg-transparent rounded-full font-bold tracking-widest md:tracking-[0.2em] uppercase hover:bg-brand-orange hover:text-black transition-all transform hover:scale-105 group relative disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
                           <span className="flex items-center justify-center gap-2 whitespace-nowrap text-xs md:text-base">
                              {isSubmitting ? 'INITIATING...' : 'INITIATE REGISTRATION'}
                           </span>
-                      </button>
+                        </button>
+                      )}
                    </div>
                 </form>
              </div>
