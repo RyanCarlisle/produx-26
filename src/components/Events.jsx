@@ -137,7 +137,7 @@ const EventCard = ({ event, index, onRegister }) => {
       onViewportEnter={() => setIsInView(true)}
       onViewportLeave={() => setIsInView(false)}
       viewport={{ once: false, amount: 0.3 }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
+      transition={{ duration: 0.2, delay: index * 0.1 }}
       className={`relative flex flex-col md:flex-row items-center w-full pl-8 md:pl-0 ${
         isEven ? "md:flex-row-reverse" : ""
       }`}

@@ -175,13 +175,13 @@ function ParticleNetwork() {
       {/* White Connection Lines */}
       <lineSegments ref={whiteLinesRef}>
         <bufferGeometry />
-        <lineBasicMaterial color="#ffffff" opacity={0.2} transparent />
+        <lineBasicMaterial color="#ffffff" opacity={0.25} transparent linewidth={2} />
       </lineSegments>
 
       {/* Orange Connection Lines */}
       <lineSegments ref={orangeLinesRef}>
         <bufferGeometry />
-        <lineBasicMaterial color="#ff6600" opacity={0.3} transparent />
+        <lineBasicMaterial color="#ff6600" opacity={0.45} transparent linewidth={2} />
       </lineSegments>
     </>
   );
