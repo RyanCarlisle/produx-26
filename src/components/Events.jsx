@@ -12,7 +12,7 @@ const eventsData = [
     id: 1,
     day: "FEB 16-22",
     date: "16-22 FEB",
-    title: "BOARDROOM BATTLEGROUND",
+    title: "Boardroom Battleground",
     time: "To be announced soon",
     location: "Online",
     description: "An immersive CXO-level simulation, where participants navigate real-world business challenges, make critical decisions, and compete for market leadership. Participants take on CXO roles, solving business challenges in a simulated environment.",
@@ -23,7 +23,7 @@ const eventsData = [
     id: 2,
     day: "FEB 16",
     date: "16 FEB",
-    title: "VIRTUOSPHERE",
+    title: "Virtuosphere",
     time: "To be announced soon",
     location: "Campus",
     description: "An engaging Virtual Reality experience for the IIM Shillong community, offering participants a first-hand look at cutting-edge immersive technology.",
@@ -34,7 +34,7 @@ const eventsData = [
     id: 3,
     day: "FEB 17",
     date: "17 FEB",
-    title: "PRECISE PROMPT",
+    title: "Precise Prompt",
     time: "To be announced soon",
     location: "Online",
     description: "A Prompt Engineering Workshop allowing participants to master the art of communicating with AI models effectively.",
@@ -45,7 +45,7 @@ const eventsData = [
     id: 4,
     day: "FEB 18",
     date: "18 FEB",
-    title: "FIGMA FORGE",
+    title: "Figma Forge",
     time: "To be announced soon",
     location: "Online",
     description: "A UI/UX Workshop focused on designing user-centric interfaces and mastering Figma tools.",
@@ -56,7 +56,7 @@ const eventsData = [
     id: 5,
     day: "FEB 18",
     date: "18 FEB",
-    title: "bITeWARS",
+    title: "bITeWars",
     time: "To be announced soon",
     location: "NAB",
     description: "A fun engagement event among IIM Shillong students designed to test wit, strategy, and teamwork.",
@@ -67,7 +67,7 @@ const eventsData = [
     id: 6,
     day: "FEB 21",
     date: "21 FEB",
-    title: "TECHVENTURES",
+    title: "TechVentures",
     time: "To be announced soon",
     location: "NAB",
     description: "An investor-led hands-on workshop to articulate students with pitching and building business models for tech startups. The event aims to strengthen participants' ability to pitch technology products with clarity and confidence, while building understanding of business models and investor expectations.",
@@ -78,7 +78,7 @@ const eventsData = [
     id: 7,
     day: "FEB 22",
     date: "22 FEB",
-    title: "bITeCAST",
+    title: "bITeCast",
     time: "To be announced soon",
     location: "Auditorium",
     description: "A dynamic, podcast-style discussion with industry leaders, exploring the intersection of technology, business strategy, and innovation.",
@@ -89,18 +89,18 @@ const eventsData = [
     id: 8,
     day: "FEB 22",
     date: "22 FEB",
-    title: "PRODUCT PIONEERS",
+    title: "Product Pioneers",
     time: "To be announced soon",
     location: "Online",
     description: "A premier product management competition challenging participants to design innovative solutions for real-world problems. Show off your product thinking and strategy.",
-    image: "/images/event_banners/produx.png",
+    image: "/images/event_banners/product_pioneers.png",
     category: "Knowledge Session"
   },
   {
     id: 9,
     day: "FEB 19",
     date: "19 FEB",
-    title: "TECH BRIDGE",
+    title: "Tech Bridge",
     time: "To be announced soon",
     location: "Campus",
     description: "Digital Enablement Workshop conducted by the IT & Infrastructure Committee to enhance digital proficiency among IIM Shillong staff. A specialized workshop empowering administrative and internal staff with digital tools and automation techniques for enhanced efficiency.",
@@ -128,7 +128,7 @@ const GlitchText = ({ text, className }) => {
 const EventCard = ({ event, index, onRegister }) => {
   const isEven = index % 2 === 0;
   const [isInView, setIsInView] = useState(false);
-  const noRegisterList = ["TECH BRIDGE", "VIRTUSOPHERE", "bITeCAST", "PRODUCT PIONEERS"];
+  const noRegisterList = ["Tech Bridge", "Virtuosphere", "bITeCast", "Product Pioneers"];
   
   return (
     <motion.div
@@ -195,7 +195,7 @@ const EventCard = ({ event, index, onRegister }) => {
                 <span>{event.day}</span>
             </div>
 
-            <h3 className="text-3xl md:text-5xl font-bold font-pixel uppercase leading-none">
+            <h3 className="text-3xl md:text-5xl font-bold font-jersey uppercase leading-none">
                 <GlitchText text={event.title} />
             </h3>
 
@@ -214,7 +214,7 @@ const EventCard = ({ event, index, onRegister }) => {
             </p>
 
             {!noRegisterList.includes(event.title) && (
-              event.title === "BOARDROOM BATTLEGROUND" ? (
+              event.title === "Boardroom Battleground" ? (
                 <a 
                   href="https://unstop.com/quiz/boardroom-battleground-iim-shillong-1640805"
                   target="_blank"
@@ -224,6 +224,13 @@ const EventCard = ({ event, index, onRegister }) => {
                   <span className="font-bold">REGISTER</span>
                   <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform text-brand-orange" />
                 </a>
+              ) : event.title === "bITeWars" ? (
+                 <button
+                 disabled
+                 className={`group inline-flex items-center gap-2 px-8 py-3 bg-white/5 border border-white/10 text-white/50 cursor-not-allowed rounded font-mono text-sm tracking-widest uppercase mt-4 ${isEven ? 'ml-auto' : 'mr-auto'}`}
+                 >
+                    <span className="font-bold">COMING SOON</span>
+                 </button>
               ) : (
                 <button 
                   onClick={() => onRegister(event.title)}

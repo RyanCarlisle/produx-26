@@ -17,7 +17,10 @@ export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
     mobileNumber: '',
     eventType: selectedEvent || '',
     teamName: '',
-    email: ''
+    email: '',
+    registrationNumber: '',
+    batch: '',
+    techIdea: ''
   });
   
   const [teamMembers, setTeamMembers] = useState([]);
@@ -41,19 +44,20 @@ export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
     "TechVentures",
     "Precise Prompt",
     "Figma Forge",
-    "Boardroom Battleground",
-    "bITeWars"
+    "Boardroom Battleground"
   ];
 
-  const teamEvents = ["Boardroom Battleground", "bITeWars"];
+  const teamEvents = ["Boardroom Battleground", "bITeWars", "TechVentures"];
   const isTeamEvent = teamEvents.includes(formData.eventType);
   const isBoardroomBattleground = formData.eventType === "Boardroom Battleground";
+  const isTechVentures = formData.eventType === "TechVentures";
   
   // Logic for max team size
   // Boardroom Battleground: Mandatorily 3 (User + 2 Members) -> Total 3
   // bITeWars: Upto 3 (User + 0-2 Members) -> Total 1-3
+  // TechVentures: Upto 4 (User + 1-3 Members) -> Total 2-4
   const isBoardroom = formData.eventType === "Boardroom Battleground";
-  const maxAdditionalMembers = 2; // Total team size 3 means 2 extra members
+  const maxAdditionalMembers = isTechVentures ? 3 : 2;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -65,7 +69,7 @@ export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
 
   const addMember = () => {
     if (teamMembers.length < maxAdditionalMembers) {
-        setTeamMembers([...teamMembers, { name: '', email: '', phone: '' }]);
+        setTeamMembers([...teamMembers, { name: '', email: '', phone: '', regNumber: '' }]);
     }
   };
 
@@ -101,10 +105,31 @@ export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
       }
       
       // Validate Logic (Basic)
+      if (!isBoardroomBattleground && !formData.registrationNumber) {
+        setAlertConfig({ isOpen: true, message: "Registration Number is required.", type: 'error' });
+        setIsSubmitting(false);
+        return;
+      }
+
       if (isTeamEvent && !formData.teamName) {
         setAlertConfig({ isOpen: true, message: "Team Name is required for this event.", type: 'error' });
         setIsSubmitting(false);
         return;
+      }
+
+      // Special conditional validations
+      if (["Figma Forge", "Precise Prompt"].includes(formData.eventType) && !formData.batch) {
+        setAlertConfig({ isOpen: true, message: "Please select your Batch.", type: 'error' });
+        setIsSubmitting(false);
+        return;
+      }
+
+      if (isTechVentures) {
+          if (teamMembers.length < 1) {
+             setAlertConfig({ isOpen: true, message: "TechVentures requires at least 2 members (Leader + Team Member 2).", type: 'error' });
+             setIsSubmitting(false);
+             return;
+          }
       }
       
       // Email & Domain Validation
@@ -133,12 +158,46 @@ export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
 
       // Validate team member emails
       if (isTeamEvent) {
+         // Create sets to check for duplicates
+         const allNames = new Set();
+         const allRegNumbers = new Set();
+
+        const leaderName = (formData.firstName + ' ' + formData.lastName).trim().toLowerCase();
+        allNames.add(leaderName);
+
+        if (formData.registrationNumber) {
+            allRegNumbers.add(formData.registrationNumber.trim().toLowerCase());
+        }
+
          for (let i = 0; i < teamMembers.length; i++) {
-             const memberValidation = validateTeamMember(teamMembers[i], i, formData.eventType);
+             const member = teamMembers[i];
+             const memberValidation = validateTeamMember(member, i, formData.eventType);
              if (!memberValidation.isValid) {
                  setAlertConfig({ isOpen: true, message: memberValidation.error, type: 'error' });
                  setIsSubmitting(false);
                  return;
+             }
+
+             // Unique Name Check
+             if (member.name) {
+                 const memberName = member.name.trim().toLowerCase();
+                 if (allNames.has(memberName)) {
+                     setAlertConfig({ isOpen: true, message: `Duplicate name found: "${member.name}". All team members including the leader must have unique names.`, type: 'error' });
+                     setIsSubmitting(false);
+                     return;
+                 }
+                 allNames.add(memberName);
+             }
+
+             // Unique Registration Number Check (only if TechVentures or other events require it in future)
+             if (isTechVentures && member.regNumber) {
+                 const memberReg = member.regNumber.trim().toLowerCase();
+                 if (allRegNumbers.has(memberReg)) {
+                     setAlertConfig({ isOpen: true, message: `Duplicate registration number found: "${member.regNumber}". All team members must have unique registration numbers.`, type: 'error' });
+                     setIsSubmitting(false);
+                     return;
+                 }
+                 allRegNumbers.add(memberReg);
              }
          }
       }
@@ -148,10 +207,14 @@ export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
         firstName: formData.firstName,
         lastName: formData.lastName,
         mobileNumber: formData.mobileNumber,
+        registrationNumber: formData.registrationNumber,
         eventType: formData.eventType,
         email: formData.email,
         timestamp: new Date().toISOString()
       };
+
+      if (formData.batch) submissionData.batch = formData.batch;
+      if (formData.techIdea) submissionData.techIdea = formData.techIdea;
 
       if (isTeamEvent) {
         submissionData.teamName = formData.teamName;
@@ -161,6 +224,7 @@ export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
             submissionData[`member${memberNum}Name`] = member.name;
             submissionData[`member${memberNum}Email`] = member.email;
             submissionData[`member${memberNum}Phone`] = member.phone;
+            if (member.regNumber) submissionData[`member${memberNum}RegNumber`] = member.regNumber;
         });
       }
 
@@ -188,7 +252,8 @@ export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
             mobileNumber: '',
             eventType: '',
             teamName: '',
-            email: ''
+            email: '',
+            registrationNumber: ''
         });
         setTeamMembers([]);
     }, 500);
@@ -280,7 +345,7 @@ export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
                    {!isBoardroomBattleground && (
                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                       <div className="space-y-1">
-                        <label className="text-sm font-mono text-white uppercase tracking-widest pl-1">First Name <span className="text-brand-red">*</span></label>
+                        <label className="text-sm font-mono text-white uppercase tracking-widest pl-1">{isTechVentures ? "Team Leader First Name" : "First Name"} <span className="text-brand-red">*</span></label>
                         <input 
                             required 
                             type="text" 
@@ -292,7 +357,7 @@ export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
                         />
                       </div>
                       <div className="space-y-1">
-                        <label className="text-sm font-mono text-white uppercase tracking-widest pl-1">Last Name <span className="text-brand-red">*</span></label>
+                        <label className="text-sm font-mono text-white uppercase tracking-widest pl-1">{isTechVentures ? "Team Leader Last Name" : "Last Name"} <span className="text-brand-red">*</span></label>
                         <input 
                             required 
                             type="text" 
@@ -306,11 +371,53 @@ export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
                    </div>
                    )}
 
+                   {/* Registration Number & Batch Row */}
+                   {(!isBoardroomBattleground || ["Figma Forge", "Precise Prompt"].includes(formData.eventType)) && (
+                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                       {/* Registration Number */}
+                       {!isBoardroomBattleground && (
+                       <div className="space-y-1">
+                          <label className="text-sm font-mono text-white uppercase tracking-widest pl-1">{isTechVentures ? "Team Leader Reg No" : "Registration Number"} <span className="text-brand-red">*</span></label>
+                          <input 
+                              required 
+                              type="text" 
+                              name="registrationNumber"
+                              value={formData.registrationNumber}
+                              onChange={handleChange}
+                              className="w-full bg-white/5 border border-brand-red/20 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-orange focus:bg-white/10 transition-all placeholder:text-white/30 validated-input" 
+                              placeholder="Registration Number" 
+                          />
+                       </div>
+                       )}
+
+                       {/* Batch Selection for Figma Forge & Precise Prompt */}
+                       {["Figma Forge", "Precise Prompt"].includes(formData.eventType) && (
+                       <div className="space-y-1">
+                          <label className="text-sm font-mono text-white uppercase tracking-widest pl-1">Batch <span className="text-brand-red">*</span></label>
+                          <div className="relative">
+                            <select 
+                                required
+                                name="batch"
+                                value={formData.batch}
+                                onChange={handleChange}
+                                style={{ colorScheme: 'dark' }}
+                                className="w-full bg-white/5 border border-brand-red/20 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-orange focus:bg-white/10 transition-all appearance-none cursor-pointer validated-input"
+                            >
+                                <option value="" disabled className="bg-[#050505] text-white">Select Batch</option>
+                                {["PGP 24", "PGP 25", "PHD 21-25", "IPM"].map(b => <option key={b} value={b} className="bg-[#050505] text-white hover:bg-brand-orange hover:text-black">{b}</option>)}
+                            </select>
+                            <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-white/30 pointer-events-none" size={18} />
+                          </div>
+                       </div>
+                       )}
+                   </div>
+                   )}
+
                    {/* Standard Contact Info */}
                    {!isBoardroomBattleground && (
                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                        <div className="space-y-1">
-                          <label className="text-xs font-mono text-white uppercase tracking-widest pl-1">Email <span className="text-brand-red">*</span></label>
+                          <label className="text-xs font-mono text-white uppercase tracking-widest pl-1">{isTechVentures ? "Team Leader Email" : "Email"} <span className="text-brand-red">*</span></label>
                           <input 
                               required 
                               type="email" 
@@ -330,7 +437,7 @@ export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
                               value={formData.mobileNumber}
                               onChange={handleChange}
                               className="w-full bg-white/5 border border-brand-red/20 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-orange focus:bg-white/10 transition-all placeholder:text-white/30 validated-input" 
-                              placeholder="+91 98765 43210" 
+                              placeholder="9876543210" 
                           />
                        </div>
                    </div>
@@ -364,6 +471,21 @@ export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
                                         />
                                     </div>
 
+                                    {/* Tech Idea for TechVentures */}
+                                    {isTechVentures && (
+                                    <div className="space-y-1">
+                                        <label className="text-sm font-mono text-white uppercase tracking-widest pl-1">What tech idea would you like to build?</label>
+                                        <textarea
+                                            name="techIdea"
+                                            value={formData.techIdea}
+                                            onChange={handleChange}
+                                            rows={3}
+                                            className="w-full bg-black/20 border border-brand-red border-opacity-20 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-red border-opacity-50 transition-all validated-input" 
+                                            placeholder="Describe your idea briefly..." 
+                                        />
+                                    </div>
+                                    )}
+
                                     {/* Dynamic Members */}
                                     <AnimatePresence>
                                         {teamMembers.map((member, index) => (
@@ -384,7 +506,7 @@ export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
                                                         <Trash2 size={14} />
                                                     </button>
                                                 </div>
-                                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                                     <div className="space-y-1">
                                                         <input 
                                                             type="text" 
@@ -394,6 +516,17 @@ export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
                                                             className="w-full bg-black/20 border border-white/10 rounded-xl px-3 py-2 text-white text-sm focus:outline-none focus:border-brand-red border-opacity-50 transition-all" 
                                                         />
                                                     </div>
+                                                    {isTechVentures && (
+                                                    <div className="space-y-1">
+                                                        <input 
+                                                            type="text" 
+                                                            placeholder="Reg Number"
+                                                            value={member.regNumber || ''}
+                                                            onChange={(e) => handleMemberChange(index, 'regNumber', e.target.value)}
+                                                            className="w-full bg-black/20 border border-white/10 rounded-xl px-3 py-2 text-white text-sm focus:outline-none focus:border-brand-red border-opacity-50 transition-all" 
+                                                        />
+                                                    </div>
+                                                    )}
                                                     <div className="space-y-1">
                                                         <input 
                                                             type="email" 

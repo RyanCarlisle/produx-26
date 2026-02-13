@@ -89,6 +89,15 @@ export const validateTeamMember = (member, index, eventType) => {
     return { isValid: false, error: `Please enter a name for Member ${memberIndex}.` };
   }
 
+  if (eventType === "TechVentures") {
+      if (!member.phone) {
+          return { isValid: false, error: `Please enter a phone number for Member ${memberIndex}.` };
+      }
+      if (!member.regNumber) {
+          return { isValid: false, error: `Please enter a registration number for Member ${memberIndex}.` };
+      }
+  }
+
   if (member.email) {
     if (!emailRegex.test(member.email)) {
        return { isValid: false, error: `Please enter a valid email for Member ${memberIndex}.` };

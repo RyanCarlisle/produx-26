@@ -39,6 +39,7 @@ export default {
         mono: ['Kode Mono', 'monospace'],
         tech: ['Unica One', 'sans-serif'],
         pixel: ['Pixelify Sans', 'cursive'],
+        jersey: ['"Jersey 10"', 'sans-serif'],
       }
     },
   },
