@@ -45,10 +45,11 @@ export const validateEmail = (email, eventType) => {
 
   // Domain check for restricted events
   const isOpenEvent = OPEN_EVENTS.includes(eventType);
-  if (!isOpenEvent && !email.endsWith(`@${ALLOWED_DOMAIN}`)) {
-    return { 
-      isValid: false, 
-      error: `Registration restricted to IIM Shillong email addresses (@${ALLOWED_DOMAIN}) for this event.` 
+  // Skip domain check in development
+  if (!import.meta.env.DEV && !isOpenEvent && !email.endsWith(`@${ALLOWED_DOMAIN}`)) {
+    return {
+      isValid: false,
+      error: `Registration restricted to IIM Shillong email addresses (@${ALLOWED_DOMAIN}) for this event.`
     };
   }
 
@@ -65,9 +66,9 @@ export const validateEmail = (email, eventType) => {
 export const validateTeamRequirements = (isBoardroom, teamMembers) => {
   if (isBoardroom) {
     if (teamMembers.length !== 2) {
-      return { 
-        isValid: false, 
-        error: "BOARDROOM BATTLEGROUND requires exactly a team of 3 members (You + 2 others). Please add 2 team members." 
+      return {
+        isValid: false,
+        error: "BOARDROOM BATTLEGROUND requires exactly a team of 3 members (You + 2 others). Please add 2 team members."
       };
     }
   }
@@ -90,30 +91,31 @@ export const validateTeamMember = (member, index, eventType) => {
   }
 
   if (eventType === "TechVentures") {
-      if (!member.phone) {
-          return { isValid: false, error: `Please enter a phone number for Member ${memberIndex}.` };
-      }
-      if (!member.regNumber) {
-          return { isValid: false, error: `Please enter a registration number for Member ${memberIndex}.` };
-      }
+    if (!member.phone) {
+      return { isValid: false, error: `Please enter a phone number for Member ${memberIndex}.` };
+    }
+    if (!member.regNumber) {
+      return { isValid: false, error: `Please enter a registration number for Member ${memberIndex}.` };
+    }
   }
 
   if (member.email) {
     if (!emailRegex.test(member.email)) {
-       return { isValid: false, error: `Please enter a valid email for Member ${memberIndex}.` };
+      return { isValid: false, error: `Please enter a valid email for Member ${memberIndex}.` };
     }
-    
+
     // Domain check
     const isOpenEvent = OPEN_EVENTS.includes(eventType);
-    if (!isOpenEvent && !member.email.endsWith(`@${ALLOWED_DOMAIN}`)) {
+    // Skip domain check in development
+    if (!import.meta.env.DEV && !isOpenEvent && !member.email.endsWith(`@${ALLOWED_DOMAIN}`)) {
       return { isValid: false, error: `Member ${memberIndex} must have an IIM Shillong email address (@${ALLOWED_DOMAIN}).` };
     }
   }
 
   if (member.phone) {
-      if (!phoneRegex.test(member.phone)) {
-        return { isValid: false, error: `Please enter a valid 10-digit mobile number for Member ${memberIndex}.` };
-      }
+    if (!phoneRegex.test(member.phone)) {
+      return { isValid: false, error: `Please enter a valid 10-digit mobile number for Member ${memberIndex}.` };
+    }
   }
 
   return { isValid: true, error: null };
