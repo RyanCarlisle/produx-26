@@ -136,13 +136,13 @@ export default function AboutPage() {
         {/* Block 2 — ProdUX'26 */}
         <div className="grid md:grid-cols-2 gap-8 md:gap-16 items-center">
           <motion.div
-            className="rounded-xl overflow-hidden aspect-[4/3]"
+            className="rounded-xl overflow-hidden aspect-video border border-white/10 bg-white/5"
             initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.7 }}
           >
-            <img src="/images/event_banners/produx.png" alt="ProdUX'26" className="w-full h-full object-cover" />
+            <img src="/images/event_banners/produx.png" alt="ProdUX'26" className="w-full h-full object-contain" />
           </motion.div>
           <motion.div
             initial={{ opacity: 0, x: 40 }}
