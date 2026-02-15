@@ -425,7 +425,7 @@ export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
                               className="w-full bg-white/5 border border-brand-red/20 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-orange focus:bg-white/10 transition-all appearance-none cursor-pointer validated-input"
                             >
                               <option value="" disabled className="bg-[#050505] text-white">Select Batch</option>
-                              {["PGP 24", "PGP 25", "PHD 21-25", "IPM"].map(b => <option key={b} value={b} className="bg-[#050505] text-white hover:bg-brand-orange hover:text-black">{b}</option>)}
+                              {["PGP 24", "PGP 25", "PHD 21-25", "IPM", "PGPEx"].map(b => <option key={b} value={b} className="bg-[#050505] text-white hover:bg-brand-orange hover:text-black">{b}</option>)}
                             </select>
                             <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-white/30 pointer-events-none" size={18} />
                           </div>
