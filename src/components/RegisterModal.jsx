@@ -42,8 +42,6 @@ export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
 
   const eventOptions = [
     "TechVentures",
-    "Precise Prompt",
-    "Figma Forge",
     "Boardroom Battleground"
   ];
 

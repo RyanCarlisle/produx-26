@@ -224,12 +224,12 @@ const EventCard = ({ event, index, onRegister }) => {
                   <span className="font-bold">REGISTER</span>
                   <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform text-brand-orange" />
                 </a>
-              ) : event.title === "bITeWars" ? (
+              ) : (event.title === "bITeWars" || event.title === "Figma Forge" || event.title === "Precise Prompt") ? (
                  <button
                  disabled
                  className={`group inline-flex items-center gap-2 px-8 py-3 bg-white/5 border border-white/10 text-white/50 cursor-not-allowed rounded font-mono text-sm tracking-widest uppercase mt-4 ${isEven ? 'ml-auto' : 'mr-auto'}`}
                  >
-                    <span className="font-bold">COMING SOON</span>
+                    <span className="font-bold">{(event.title === "Figma Forge" || event.title === "Precise Prompt") ? "REGISTRATION CLOSED" : "COMING SOON"}</span>
                  </button>
               ) : (
                 <button 
