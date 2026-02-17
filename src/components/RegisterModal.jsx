@@ -42,20 +42,24 @@ export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
 
   const eventOptions = [
     "TechVentures",
-    "Boardroom Battleground"
+    "Boardroom Battleground",
+    "bITeWars",
+    "BITECAST",
+    "Product Pioneers"
   ];
 
   const teamEvents = ["Boardroom Battleground", "bITeWars", "TechVentures"];
   const isTeamEvent = teamEvents.includes(formData.eventType);
   const isBoardroomBattleground = formData.eventType === "Boardroom Battleground";
   const isTechVentures = formData.eventType === "TechVentures";
+  const isBiteWars = formData.eventType === "bITeWars";
 
   // Logic for max team size
   // Boardroom Battleground: Mandatorily 3 (User + 2 Members) -> Total 3
-  // bITeWars: Upto 3 (User + 0-2 Members) -> Total 1-3
+  // bITeWars: Exactly 2 (User + 1 Member) -> Total 2
   // TechVentures: Upto 4 (User + 1-3 Members) -> Total 2-4
   const isBoardroom = formData.eventType === "Boardroom Battleground";
-  const maxAdditionalMembers = isTechVentures ? 3 : 2;
+  const maxAdditionalMembers = isTechVentures ? 3 : isBiteWars ? 1 : 2;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -130,6 +134,14 @@ export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
         }
       }
 
+      if (isBiteWars) {
+        if (teamMembers.length !== 1) {
+          setAlertConfig({ isOpen: true, message: "bITeWars requires exactly 2 members (Leader + 1 Team Member).", type: 'error' });
+          setIsSubmitting(false);
+          return;
+        }
+      }
+
       // Email & Domain Validation
       const emailValidation = validateEmail(formData.email, formData.eventType);
       if (!emailValidation.isValid) {
@@ -187,8 +199,8 @@ export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
             allNames.add(memberName);
           }
 
-          // Unique Registration Number Check (only if TechVentures or other events require it in future)
-          if (isTechVentures && member.regNumber) {
+          // Unique Registration Number Check (only if TechVentures or bITeWars or other events require it in future)
+          if ((isTechVentures || isBiteWars) && member.regNumber) {
             const memberReg = member.regNumber.trim().toLowerCase();
             if (allRegNumbers.has(memberReg)) {
               setAlertConfig({ isOpen: true, message: `Duplicate registration number found: "${member.regNumber}". All team members must have unique registration numbers.`, type: 'error' });
@@ -364,7 +376,7 @@ export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
                   {!isBoardroomBattleground && (
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                       <div className="space-y-1">
-                        <label className="text-sm font-mono text-white uppercase tracking-widest pl-1">{isTechVentures ? "Team Leader First Name" : "First Name"} <span className="text-brand-red">*</span></label>
+                        <label className="text-sm font-mono text-white uppercase tracking-widest pl-1">{(isTechVentures || isBiteWars) ? "Team Leader First Name" : "First Name"} <span className="text-brand-red">*</span></label>
                         <input
                           required
                           type="text"
@@ -376,7 +388,7 @@ export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
                         />
                       </div>
                       <div className="space-y-1">
-                        <label className="text-sm font-mono text-white uppercase tracking-widest pl-1">{isTechVentures ? "Team Leader Last Name" : "Last Name"} <span className="text-brand-red">*</span></label>
+                        <label className="text-sm font-mono text-white uppercase tracking-widest pl-1">{(isTechVentures || isBiteWars) ? "Team Leader Last Name" : "Last Name"} <span className="text-brand-red">*</span></label>
                         <input
                           required
                           type="text"
@@ -396,7 +408,7 @@ export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
                       {/* Registration Number */}
                       {!isBoardroomBattleground && (
                         <div className="space-y-1">
-                          <label className="text-sm font-mono text-white uppercase tracking-widest pl-1">{isTechVentures ? "Team Leader Reg No" : "Registration Number"} <span className="text-brand-red">*</span></label>
+                          <label className="text-sm font-mono text-white uppercase tracking-widest pl-1">{(isTechVentures || isBiteWars) ? "Team Leader Reg No" : "Registration Number"} <span className="text-brand-red">*</span></label>
                           <input
                             required
                             type="text"
@@ -436,7 +448,7 @@ export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
                   {!isBoardroomBattleground && (
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                       <div className="space-y-1">
-                        <label className="text-xs font-mono text-white uppercase tracking-widest pl-1">{isTechVentures ? "Team Leader Email" : "Email"} <span className="text-brand-red">*</span></label>
+                        <label className="text-xs font-mono text-white uppercase tracking-widest pl-1">{(isTechVentures || isBiteWars) ? "Team Leader Email" : "Email"} <span className="text-brand-red">*</span></label>
                         <input
                           required
                           type="email"
@@ -535,7 +547,7 @@ export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
                                       className="w-full bg-black/20 border border-white/10 rounded-xl px-3 py-2 text-white text-sm focus:outline-none focus:border-brand-red border-opacity-50 transition-all"
                                     />
                                   </div>
-                                  {isTechVentures && (
+                                  {(isTechVentures || isBiteWars) && (
                                     <div className="space-y-1">
                                       <input
                                         type="text"
