@@ -54,14 +54,25 @@ const eventsData = [
   },
   {
     id: 5,
-    day: "FEB 17-18",
-    date: "17-18 FEB",
+    day: "FEB 18-19",
+    date: "18-19 FEB",
     title: "Tech Bridge",
     time: "04:30 PM - 06:00 PM",
     location: "Campus",
     description: "Digital Enablement Workshop conducted by the IT & Infrastructure Committee to enhance digital proficiency among IIM Shillong staff. A specialized workshop empowering administrative and internal staff with digital tools and automation techniques for enhanced efficiency.",
     image: "/images/event_banners/tech_bridge.png",
     category: "WORKSHOP"
+  },
+  {
+    id: 9,
+    day: "FEB 20",
+    date: "20 FEB",
+    title: "bITeWars",
+    time: "06:00 PM onwards",
+    location: "NAB",
+    description: "A fun engagement event among IIM Shillong students designed to test wit, strategy, and teamwork.",
+    image: "/images/event_banners/bitewars.png",
+    category: "ENGAGEMENT"
   },
   {
     id: 6,
@@ -95,17 +106,6 @@ const eventsData = [
     description: "A premier product management competition challenging participants to design innovative solutions for real-world problems. Show off your product thinking and strategy.",
     image: "/images/event_banners/product_pioneers.png",
     category: "KNOWLEDGE SESSION"
-  },
-  {
-    id: 9,
-    day: "FEB 19",
-    date: "19 FEB",
-    title: "bITeWars",
-    time: "To be announced soon",
-    location: "NAB",
-    description: "A fun engagement event among IIM Shillong students designed to test wit, strategy, and teamwork.",
-    image: "/images/event_banners/bitewars.png",
-    category: "ENGAGEMENT"
   }
 ];
 
@@ -128,7 +128,7 @@ const GlitchText = ({ text, className }) => {
 const EventCard = ({ event, index, onRegister }) => {
   const isEven = index % 2 === 0;
   const [isInView, setIsInView] = useState(false);
-  const noRegisterList = ["Tech Bridge", "Virtuosphere", "bITeCast", "Product Pioneers"];
+  const noRegisterList = ["Tech Bridge", "Virtuosphere"];
   
   return (
     <motion.div
@@ -214,22 +214,12 @@ const EventCard = ({ event, index, onRegister }) => {
             </p>
 
             {!noRegisterList.includes(event.title) && (
-              event.title === "Boardroom Battleground" ? (
-                <a 
-                  href="https://unstop.com/quiz/boardroom-battleground-iim-shillong-1640805"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`group inline-flex items-center gap-2 px-8 py-3 bg-white/5 border border-white/10 hover:border-brand-orange hover:bg-brand-orange/10 transition-all duration-300 rounded font-mono text-sm tracking-widest uppercase mt-4 ${isEven ? 'ml-auto' : 'mr-auto'}`}
-                >
-                  <span className="font-bold">REGISTER</span>
-                  <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform text-brand-orange" />
-                </a>
-              ) : (event.title === "bITeWars" || event.title === "Figma Forge" || event.title === "Precise Prompt") ? (
+              (event.title === "Boardroom Battleground" || event.title === "Figma Forge" || event.title === "Precise Prompt") ? (
                  <button
                  disabled
                  className={`group inline-flex items-center gap-2 px-8 py-3 bg-white/5 border border-white/10 text-white/50 cursor-not-allowed rounded font-mono text-sm tracking-widest uppercase mt-4 ${isEven ? 'ml-auto' : 'mr-auto'}`}
                  >
-                    <span className="font-bold">{(event.title === "Figma Forge" || event.title === "Precise Prompt") ? "REGISTRATION CLOSED" : "COMING SOON"}</span>
+                    <span className="font-bold">{(event.title === "Figma Forge" || event.title === "Precise Prompt" || event.title === "Boardroom Battleground") ? "REGISTRATION CLOSED" : "COMING SOON"}</span>
                  </button>
               ) : (
                 <button 

@@ -45,8 +45,12 @@ export const validateEmail = (email, eventType) => {
 
   // Domain check for restricted events
   const isOpenEvent = OPEN_EVENTS.includes(eventType);
-  // Skip domain check in development
-  if (!import.meta.env.DEV && !isOpenEvent && !email.endsWith(`@${ALLOWED_DOMAIN}`)) {
+  
+  // Skip domain check in development unless it's bITeWars which we want to test strictly
+  const isDev = import.meta.env.DEV;
+  const shouldCheckDomain = (!isDev || eventType === 'bITeWars') && !isOpenEvent;
+
+  if (shouldCheckDomain && !email.endsWith(`@${ALLOWED_DOMAIN}`)) {
     return {
       isValid: false,
       error: `Registration restricted to IIM Shillong email addresses (@${ALLOWED_DOMAIN}) for this event.`
@@ -90,12 +94,15 @@ export const validateTeamMember = (member, index, eventType) => {
     return { isValid: false, error: `Please enter a name for Member ${memberIndex}.` };
   }
 
-  if (eventType === "TechVentures") {
+  if (eventType === "TechVentures" || eventType === "bITeWars") {
     if (!member.phone) {
       return { isValid: false, error: `Please enter a phone number for Member ${memberIndex}.` };
     }
     if (!member.regNumber) {
       return { isValid: false, error: `Please enter a registration number for Member ${memberIndex}.` };
+    }
+    if (eventType === "bITeWars" && !member.email) {
+      return { isValid: false, error: `Please enter an email for Member ${memberIndex}.` };
     }
   }
 
@@ -106,8 +113,11 @@ export const validateTeamMember = (member, index, eventType) => {
 
     // Domain check
     const isOpenEvent = OPEN_EVENTS.includes(eventType);
-    // Skip domain check in development
-    if (!import.meta.env.DEV && !isOpenEvent && !member.email.endsWith(`@${ALLOWED_DOMAIN}`)) {
+    // Skip domain check in development unless it's bITeWars which we want to test strictly
+    const isDev = import.meta.env.DEV;
+    const shouldCheckDomain = (!isDev || eventType === 'bITeWars') && !isOpenEvent;
+    
+    if (shouldCheckDomain && !member.email.endsWith(`@${ALLOWED_DOMAIN}`)) {
       return { isValid: false, error: `Member ${memberIndex} must have an IIM Shillong email address (@${ALLOWED_DOMAIN}).` };
     }
   }

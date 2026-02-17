@@ -42,9 +42,8 @@ export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
 
   const eventOptions = [
     "TechVentures",
-    "Boardroom Battleground",
     "bITeWars",
-    "BITECAST",
+    "bITeCast",
     "Product Pioneers"
   ];
 
