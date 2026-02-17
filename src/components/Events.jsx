@@ -98,8 +98,8 @@ const eventsData = [
   },
   {
     id: 9,
-    day: "FEB 18",
-    date: "18 FEB",
+    day: "FEB 19",
+    date: "19 FEB",
     title: "bITeWars",
     time: "To be announced soon",
     location: "NAB",
