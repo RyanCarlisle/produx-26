@@ -5,7 +5,7 @@ import { createPortal } from 'react-dom';
 import { ref, push } from 'firebase/database';
 import { db } from '../firebase';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
-import { validateEmail, validateTeamRequirements, validateTeamMember, validatePhone } from '../utils/validations';
+import { validateEmail, validateTeamRequirements, validateTeamMember, validatePhone, validateRegistrationNumber } from '../utils/validations';
 import CustomAlert from './CustomAlert';
 
 export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
@@ -41,10 +41,7 @@ export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
   }, [formData.eventType]);
 
   const eventOptions = [
-    "TechVentures",
-    "bITeWars",
-    "bITeCast",
-    "Product Pioneers"
+    // All events closed
   ];
 
   const teamEvents = ["Boardroom Battleground", "bITeWars", "TechVentures"];
@@ -108,6 +105,13 @@ export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
       // Validate Logic (Basic)
       if (!isBoardroomBattleground && !formData.registrationNumber) {
         setAlertConfig({ isOpen: true, message: "Registration Number is required.", type: 'error' });
+        setIsSubmitting(false);
+        return;
+      }
+
+      const regValidation = validateRegistrationNumber(formData.registrationNumber, formData.eventType);
+      if (!regValidation.isValid) {
+        setAlertConfig({ isOpen: true, message: regValidation.error, type: 'error' });
         setIsSubmitting(false);
         return;
       }
@@ -345,7 +349,22 @@ export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
                     Close
                   </button>
                 </motion.div>
-              ) : (<div className="relative z-10">
+              ) : (
+                <div className="relative z-10 flex flex-col items-center justify-center text-center py-10 h-full">
+                  <h2 className="text-2xl md:text-4xl font-bold mb-4 text-transparent bg-clip-text bg-[linear-gradient(to_right,#c20023,#ff6600,#fffb00)] drop-shadow-lg">
+                    REGISTRATION CLOSED
+                  </h2>
+                  <p className="text-white text-lg max-w-md mx-auto mb-8">
+                    The registration period for all events has ended. Thank you for your interest.
+                  </p>
+                  <button
+                    onClick={onClose}
+                    className="px-8 py-3 bg-white/10 border border-white/20 hover:border-brand-orange hover:bg-brand-orange hover:text-black rounded text-white font-mono uppercase tracking-widest text-sm transition-all duration-300"
+                  >
+                    Close
+                  </button>
+                  <div className="hidden">
+                    {/* Hidden Form for archive */}
                 <h2 className="text-2xl md:text-4xl font-bold mb-2 text-transparent bg-clip-text bg-[linear-gradient(to_right,#c20023,#ff6600,#fffb00)] drop-shadow-lg pb-1 pr-10">
                   Mission Registration
                 </h2>
@@ -527,7 +546,9 @@ export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
                                 className="border-t border-white/10 pt-4"
                               >
                                 <div className="flex items-center justify-between mb-2">
-                                  <span className="text-xs font-mono text-brand-orange uppercase">Member {index + 2}</span>
+                                  <span className="text-xs font-mono text-brand-orange uppercase">
+                                    Member {index + 2} {((index === 0) && (isTechVentures || isBiteWars)) && <span className="text-red-500">*</span>}
+                                  </span>
                                   <button
                                     type="button"
                                     onClick={() => removeMember(index)}
@@ -634,6 +655,7 @@ export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
                   </div>
                 </form>
               </div>
+            </div>
               )}
             </div>
 
